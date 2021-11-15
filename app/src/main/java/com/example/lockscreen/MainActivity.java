@@ -35,6 +35,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         enable.setOnClickListener(this);
         disable.setOnClickListener(this);
 
+        boolean active = devicePolicyManager.isAdminActive(compName);
+        if (active) {
+            devicePolicyManager.lockNow();
+            finish();
+        } else {
+            Toast.makeText(this, "You need to enable the Admin Device Features", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
     @Override
@@ -52,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boolean active = devicePolicyManager.isAdminActive(compName);
             if (active) {
                 devicePolicyManager.lockNow();
+                finish();
             } else {
                 Toast.makeText(this, "You need to enable the Admin Device Features", Toast.LENGTH_SHORT).show();
             }
